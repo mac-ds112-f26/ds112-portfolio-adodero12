@@ -6,10 +6,6 @@ title: "My first Quarto document"
 
 
 
-
-\
-\
-
 **Macalester College** is in the *Twin Cities*.
 It has:
 
