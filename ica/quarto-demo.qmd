@@ -25,21 +25,26 @@ Check it out for yourself:
 Check out the appearance and contents of this document. Thoughts?
 
 In the toolbar at the top of this document, **Render** the .qmd file into a .html file. Where is this file stored? Thoughts about its appearance / contents? Can you edit it?
-
+# file is stored in ica folder in github, render opens the file as an html
 Toggling between the .qmd and .html files, explain the purpose of the following features in the .qmd file:        
 
 `*`
+# italicized text
 
 `**`
+# bold text
 
 `#`
+#?
 
 `-`
+# bullet points
 
 `\`
+#?
 
 `![](url)`
-
+# embed image link
 
 
 ## Exercise 2: Code
@@ -47,7 +52,7 @@ Toggling between the .qmd and .html files, explain the purpose of the following 
 How does this appear in the .qmd? The .html? So...?!
 
 seq(from = 100, to = 1000, by = 50)
-
+# it's the same
 
 
 ## Exercise 3: Chunks
@@ -56,13 +61,13 @@ Quarto isn't a mind reader -- we must distinguish R code from text.
 We do so by putting code inside an **R chunk**:
 
 ```{r}
-
+seq()
 ```
-
 - Put the `seq()` code in the chunk.
 - Press the green arrow in the top right of the chunk. What happens in the qmd?
 - Render. What appears in the html: R code, output, or both?
 
+# html file shows both r code and output!!!
 
 
 ## Exercise 4: Practice
@@ -71,6 +76,9 @@ We do so by putting code inside an **R chunk**:
 - Store the sequence as `four_tens`.
 - Use an R function (which we haven't learned!) to add up the numbers in `four_tens`.
 
+```{r}
+rep(x=10, times = 4)
+```
 
 
 ## Exercise 5: Fix this code
@@ -82,6 +90,11 @@ Put the code in a chunk and fix it.
 Rep(x = 1, times = 10)
 seq(from=100,to=1000,length=20)
 theNumberofStudentsinthisclass<-27
+```{r}
+rep(x = 1, times = 10)
+seq(from=100,to=1000,length=20)
+theNumberofStudentsinthisclass<-27
+```
 
 
 
@@ -100,7 +113,7 @@ We'll utilize this feature to **comment our code**, i.e. leave short notes about
 Below, replace the `???` with an appropriate comment.
 
 ```{r}
-# ???
+# this is a comment inside a code
 temperature_c <- 10
 temperature_f <- temperature_c * 9/5 + 32
 temperature_f
