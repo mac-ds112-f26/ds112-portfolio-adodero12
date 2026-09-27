@@ -7,6 +7,10 @@ title: "Univariate Viz — Exercises"
 Before starting, review the [ICA Instructions ⭐](https://hash-mac.github.io/ds112site-f26/activities/ica-instructions.html) for details on pair programming and activity procedures.
 :::
 
+```{r}
+library(tidyverse)
+```
+
 
 ## Setup
 
@@ -138,7 +142,7 @@ Reflect on the `ggplot()` code.
 #makes ggplot code a visual object with the data (in this case, it's a bar graph)
 
 -   What does `labs()` stand for?
-#modify axis, legend, and plot labels (this allowed us to modify the x and y axis)
+#stands for labels, used to modify axis, legend, and plot labels (this allowed us to modify the x and y axis)
 
 -   What's the difference between `color` and `fill`?
 #color is the outline of the actual bar outline, fill is the color inside the bar
@@ -179,7 +183,9 @@ Here:
 
 ```{r}
 # write your code here
-
+ggplot(hikes, aes(x = elevation)) +
+  geom_bar() +
+  labs(x = "elevation", y = "Number of hikes")
 ```
 
 
@@ -250,51 +256,60 @@ ggplot(hikes, aes(x = elevation)) +
 ggplot(hikes, aes(x = elevation)) +
   geom_histogram(color = "white") 
 ```
-
+#same as above, except this time (color= "white") after geom_histogram outlines the bar shapes in white
 ```{r}
 # COMMENT on the change in the code and the corresponding change in the plot
 ggplot(hikes, aes(x = elevation)) +
   geom_histogram(color = "white", fill = "blue") 
 ```
-
+#same but this time fills with blue color, geom_histogram(color = "white", fill = "blue")
 ```{r}
 # COMMENT on the change in the code and the corresponding change in the plot
 ggplot(hikes, aes(x = elevation)) +
   geom_histogram(color = "white") +
   labs(x = "Elevation (feet)", y = "Number of hikes")
 ```
-
+#labs defines the labels for the x and y axis (now it is "Elevation(feet)" and "Number of hikes")
 ```{r}
 # COMMENT on the change in the code and the corresponding change in the plot
 ggplot(hikes, aes(x = elevation)) +
   geom_histogram(color = "white", binwidth = 1000) +
   labs(x = "Elevation (feet)", y = "Number of hikes")
 ```
-
+#binwidth inside geom_histogram function stretches out the range of each bin/bar, dictates how it is grouped
 ```{r}
 # COMMENT on the change in the code and the corresponding change in the plot
 ggplot(hikes, aes(x = elevation)) +
   geom_histogram(color = "white", binwidth = 5) +
   labs(x = "Elevation (feet)", y = "Number of hikes")
 ```
-
+#makes each bin skinnier (5 ft wide on x axis)
 ```{r}
 # COMMENT on the change in the code and the corresponding change in the plot
 ggplot(hikes, aes(x = elevation)) +
   geom_histogram(color = "white", binwidth = 200) +
   labs(x = "Elevation (feet)", y = "Number of hikes")
 ```
-
+#200 good balance for binwidth
 
 ## Exercise 10: Histogram Follow-up
 
 -   What function added the histogram layer / geometry?
--   What's the difference between `color` and `fill`?
--   Why does adding `color = "white"` improve the visualization?
--   What did `binwidth` do?
--   Why does the histogram become ineffective if the `binwidth` is too big (eg, 1000 feet)?
--   Why does the histogram become ineffective if the `binwidth` is too small (eg, 5 feet)?
+#geom_histogram
 
+-   What's the difference between `color` and `fill`?
+#color is the outline of the viz, fill is the inside color
+
+-   Why does adding `color = "white"` improve the visualization?
+#helps us see the shape of the bars more clearly
+
+-   What did `binwidth` do?
+#establishes the grouping of the bars along the x-axis
+
+-   Why does the histogram become ineffective if the `binwidth` is too big (eg, 1000 feet)?
+#because then we won't be able to see all of the data (it gets cut off too early)
+-   Why does the histogram become ineffective if the `binwidth` is too small (eg, 5 feet)?
+#because then each bar is too small, viz becomes too crowded and difficult to read!
 
 ## Exercise 11: Density Plots
 
@@ -312,23 +327,28 @@ ggplot(hikes, aes(x = elevation)) +
 -   INTUITION CHECK: Before tweaking the code and thinking back to `geom_bar()` and `geom_histogram()`, how do you *anticipate* the following code will change the plot?
 
     -   `geom_density(color = "blue")`
+#will make the line blue
+    
     -   `geom_density(fill = "orange")`
+#will fill the area below the line with orange
 
 -   TRY IT! Test out those lines in the chunk below. Was your intuition correct?
 
 ```{r}
 # Write your code here
-
+ggplot(hikes, aes(x = elevation)) +
+  geom_density(color="blue", fill="orange")
 ```
 
 -   Examine the density plot. How does it compare to the histogram? What does it tell you about the *typical* elevation, *variability / range* in elevations, and *shape* of the distribution of *elevations* within this range?
-
+#It is around the same shape as the histogram (just not blocks!) and shows the same patterns like typical elevation around 4000 ft, since it is smoothed out and less blocky it is easier to see more exact values
 
 
 ## Exercise 12: Density Plots vs Histograms
 
 The histogram and density plot both allow us to visualize the behavior of a quantitative variable: typical outcome, variability / range, shape, and outliers. What are the pros/cons of each? What do you like/not like about each?
-
+#Histograms: we lump too many hikes together and lose track of the nuances
+#Density plot: we don’t lump enough hikes together and lose track of the bigger picture trends
 
 ## Exercise 13: Code = communication
 
@@ -367,10 +387,23 @@ Practice your viz skills to learn about some of the variables in one of the foll
 
 ```{r}
 # Data on students in this class
-survey <- read.csv("../data/survey.csv")
+survey <- read.csv("https://hash-mac.github.io/ds112site-f26/data/survey.csv")
 
 # World Cup data
 world_cup <- read.csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-11-29/worldcups.csv")
+```
+
+
+```{r}
+head(survey)
+```
+```{r}
+ggplot(survey, aes(x = fav_temp_c)) +
+  geom_bar(color = "orange", fill = "blue")
+```
+```{r}
+ggplot(survey, aes(x = fav_temp_c)) +
+  geom_density(color = "orange", fill = "blue")
 ```
 
 #### Part b
