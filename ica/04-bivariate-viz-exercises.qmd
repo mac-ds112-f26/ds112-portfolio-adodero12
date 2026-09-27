@@ -248,6 +248,7 @@ Box plots are constructed from five numbers: the minimum, 25th percentile, media
 **REFLECT:**
 
 Summarize what you've learned about the 2020 Republican county-level support within and between red/purple/blue states.
+#decent amount of range in county-level support, more R support in red states
 
 ## Exercise 8: Quantitative vs Categorical: Intuition Check
 
@@ -276,14 +277,15 @@ Work through the chunks below and address the comments therein.
 ggplot(elections, aes(x = repub_pct_20, fill = historical)) +
   geom_density()
 ```
-
+#1- colors overlap but we cannot see exactly where because of solid colors
+#2- plot colors do not correspond with their labels
 ```{r}
 # What does scale_fill_manual do?
 ggplot(elections, aes(x = repub_pct_20, fill = historical)) +
   geom_density() +
   scale_fill_manual(values = c("blue", "purple", "red"))
 ```
-
+#scale_fill_manual "hard codes" or defines what colors to use for the fill categories
 ```{r}
 # What does alpha = 0.5 do?
 # Play around with different values of alpha, between 0 and 1
@@ -291,7 +293,9 @@ ggplot(elections, aes(x = repub_pct_20, fill = historical)) +
   geom_density(alpha = 0.5) +
   scale_fill_manual(values = c("blue", "purple", "red"))
 ```
-
+#alpha = 0.5 adds transparency
+#the closer alpha is to 0, the more transparent.
+#the closer alpha is to 1, the more opaque.
 ```{r}
 # What does facet_wrap do?!
 ggplot(elections, aes(x = repub_pct_20, fill = historical)) +
@@ -299,7 +303,7 @@ ggplot(elections, aes(x = repub_pct_20, fill = historical)) +
   scale_fill_manual(values = c("blue", "purple", "red")) +
   facet_wrap(~historical)
 ```
-
+#splits the graph into separate panels (facets) based on different categories
 ```{r}
 # Let's try a similar grouping strategy with a histogram instead of density plot.
 # Why is this terrible?
@@ -307,14 +311,19 @@ ggplot(elections, aes(x = repub_pct_20, fill = historical)) +
   geom_histogram(color = "white") +
   scale_fill_manual(values = c("blue", "purple", "red"))
 ```
-
+#too blocky, we can't see the nuances in the data, lack of color transparency is visually confusing
 ## Exercise 10: Reflect
 
 We've now learned 3 (of many) ways to visualize the relationship between a quantitative and categorical variable: side-by-side violins, boxplots, and density plots.
 
 - Which do you like best?
+#density plots
+
 - What is one pro of density plots relative to boxplots?
+# Density plots don’t oversimplify the data / boil the data down to just 5 numbers.
+
 - What is one con of density plots relative to boxplots?
+# more straightforward to interpret sometimes
 
 ## Exercise 11: Categorical vs Categorical: Intuition Check
 
@@ -331,14 +340,15 @@ Adjust the code below to recreate the following two plots.
 
 ```{r}
 # Plot 1: adjust this to recreate the top plot
-ggplot(elections, aes(x = historical)) +
+ggplot(elections, aes(x = historical, fill = winner_20)) +
   geom_bar()
 ```
 
 ```{r}
 # Plot 2: adjust this to recreate the bottom plot
 ggplot(elections, aes(x = winner_20)) +
-  geom_bar()
+  geom_bar() +
+  facet_wrap(~ historical)
 ```
 
 ## Exercise 12: Categorical vs Categorical
@@ -351,7 +361,7 @@ Construct the following 4 bar plot visualizations.
 ggplot(elections, aes(x = historical, fill = winner_20)) +
   geom_bar()
 ```
-
+#"historical" is the historical color of the states (the x-axis value), "winner_20" is the fill value (shows number dem/repub in 2020)
 ```{r}
 # A faceted bar plot
 ggplot(elections, aes(x = winner_20)) +
@@ -365,21 +375,25 @@ ggplot(elections, aes(x = winner_20)) +
 ggplot(elections, aes(x = historical, fill = winner_20)) +
   geom_bar(position = "dodge")
 ```
-
+#separates the bars into two
 ```{r}
 # A proportional bar plot
 # Note the new argument to geom_bar
 ggplot(elections, aes(x = historical, fill = winner_20)) +
   geom_bar(position = "fill")
 ```
+#makes the bar plot fill the entire screen by making count (y-axis) a decimal out of 1.00 rather than just a straight count (like a percentage almost!)
 
 #### Part a
 
 Name one pro and one con of using the "proportional bar plot" instead of one of the other three options.
+#Pro: Easier to compare between plots
+#Con: Cannot see exact count numbers
 
 #### Part b
 
-What's your favorite bar plot from part and why?
+What's your favorite bar plot from part a and why?
+#I like the proportional one because it makes it easy to compare between the states
 
 ## Exercise 13: Optional Practice
 
@@ -406,21 +420,25 @@ How might you plot just 1 of the variables, and then tweak the plot to incorpora
 
 ```{r}
 # How do 3pm temperatures (temp3pm) differ by location?
+ggplot(weather, aes(x = temp3pm, fill = location)) + 
+  geom_density(alpha = 0.5)
 
-
+ggplot(weather, aes(y = temp3pm, x = location)) + 
+  geom_boxplot()
 
 ```
 
 ```{r}
 # How might we predict the 3pm temperature (temp3pm) by the 9am temperature (temp9am)?
-
-
+ggplot(weather, aes(y = temp3pm, x = temp9am)) + 
+  geom_point()
 
 ```
 
 ```{r}
 # How do the number of rainy days (raintoday) differ by location?
-
+ggplot(weather, aes(x = location, fill = raintoday)) + 
+  geom_bar()
 
 ```
 
