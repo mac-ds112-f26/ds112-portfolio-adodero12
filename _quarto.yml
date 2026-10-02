@@ -21,7 +21,7 @@ number-depth: 2
 
 
 book:
-  title: "COMP/STAT212 Portfolio"
+  title: "COMP/STAT112 Portfolio"
   author: "Alejandra Dodero"
   date: today  # use today to update date published based on last time project was edited
   date-format: full
@@ -78,6 +78,7 @@ book:
       - ica/quarto-demo.qmd
       - ica/03-univariate-viz-exercises.qmd
       - ica/04-bivariate-viz-exercises.qmd
+      - ica/05-multivariate-viz.qmd
 
     - part: "Extras"
       chapters:
