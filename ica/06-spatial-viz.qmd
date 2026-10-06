@@ -61,6 +61,7 @@ Let's load [the data](../data/our_fave_places.csv) and map it!
 
 ```{r}
 library(tidyverse)
+library(rnaturalearthhires)
 ```
 
 ```{r}
@@ -349,16 +350,16 @@ Adjust the code below to make the plot!
 Remove the `#` to run it.
 
 ```{r}
-# ggplot(___) + 
-#   geom___() + 
-#   geom___(
-#     data = ___,
-#     aes(x = ___, y = ___),
-#     alpha = 0.7,
-#     size = 0.2, 
-#     color = 'darkgreen'
-#   ) + 
-#   theme_map()
+ggplot(midwest_boundaries) + 
+  geom_sf() + 
+    geom_point(
+      data = starbucks_midwest,
+      aes(x = Longitude, y = Latitude),
+      alpha = 0.7,
+      size = 0.2, 
+      color = 'darkgreen'
+    ) + 
+    theme_map()
 ```
 
 ### ✏️ Build Contour Maps
@@ -468,7 +469,9 @@ Now map `repub_pct_20` by state.
 
 ```{r}
 # Note where the dataset, elections_by_state, is used
+#After ggplot!
 # Note where the background map, states_map, is used
+#In geom_map, map value = states_map
 ggplot(elections_by_state, aes(map_id = state_name, fill = repub_pct_20)) +
   geom_map(map = states_map) +
   expand_limits(x = states_map$long, y = states_map$lat) +
@@ -545,6 +548,7 @@ ggplot(elections_by_state, aes(map_id = state_name, fill = repub_20_categories))
 
 We used `geom_sf()` for point maps.
 What `geom` do we use for choropleth maps?
+#Use geom_map
 
 ### ✏️ Map Counties with Choropleth
 
@@ -603,7 +607,13 @@ ggplot(elections_by_counties, aes(map_id = county_fips, fill = repub_20_categori
 Construct a county-level map of `median_rent`.
 
 ```{r}
-
+ggplot(elections_by_counties, aes(map_id = county_fips, fill = median_rent)) +
+  geom_map(map = county_map) +
+  scale_fill_gradientn(name = "Median Rent", colors = c("white", "lightgreen", "darkgreen")) +
+  expand_limits(x = county_map$long, y = county_map$lat) +
+  theme_map() +
+  theme(legend.position = "right") + 
+  coord_equal()
 ```
 
 
@@ -612,7 +622,13 @@ Construct a county-level map of `median_rent`.
 Construct a county-level map of `median_age`.
 
 ```{r}
-
+ggplot(elections_by_counties, aes(map_id = county_fips, fill = median_age)) +
+  geom_map(map = county_map) +
+  scale_fill_gradientn(name = "Median Age", colors = c("white", "lightgreen", "darkgreen")) +
+  expand_limits(x = county_map$long, y = county_map$lat) +
+  theme_map() +
+  theme(legend.position = "right") + 
+  coord_equal()
 ```
 
 ### ✏️ Build Choropleth with Leaflet
