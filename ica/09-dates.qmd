@@ -134,7 +134,8 @@ names(penguins)
 Use a shortcut to keep everything but the year and island variables.
 
 ```{r}
-
+penguins |>
+  select(-year, -island)
 ```
 
 
@@ -143,7 +144,8 @@ Use a shortcut to keep everything but the year and island variables.
 Use a shortcut to keep only species and the penguin characteristics measured in mm.
 
 ```{r}
-
+penguins |>
+  select(species, ends_with("mm"))
 ```
 
 
@@ -152,7 +154,8 @@ Use a shortcut to keep only species and the penguin characteristics measured in 
 Use a shortcut to keep only species and bill-related measurements.
 
 ```{r}
-
+penguins |>
+  select(species, starts_with("bill"))
 ```
 
 
@@ -161,7 +164,8 @@ Use a shortcut to keep only species and bill-related measurements.
 Use a shortcut to keep only species and the length-related characteristics.
 
 ```{r}
-
+penguins |>
+  select(species, contains("length"))
 ```
 
 \
@@ -177,24 +181,26 @@ We've done examples where we need to `filter()` by more than one variable, or `s
 # Change this code to sort the penguins by species, and then island name
 # NOTE: The first row should be an Adelie penguin living on Biscoe island
 penguins |>
-  arrange(species) |> 
+  arrange(species, island) |> 
   head()
 ```
+#Add island after species
 
 ### ✏️ Count by 2 Variables
 
 ```{r}
 # Change this code to count the number of male/female penguins observed for each species
 penguins |>
-  count(species)
+  count(species, sex)
 ```
+#Add sex after species
 
 ### ✏️ Group by 2 Variables
 
 ```{r}
 # Change this code to calculate the average body mass by species and sex
 penguins |>
-  group_by(species) |>
+  group_by(species, sex) |>
   summarize(mean = mean(body_mass_g, na.rm = TRUE))
 
 ```
@@ -224,35 +230,41 @@ The `lubridate` package inside `tidyverse` contains functions that can extract v
 ```{r}
 year(today)
 ```
+#Tells us the current
 
 ```{r}
 # What do these lines produce / what's their difference?
 month(today)
 month(today, label = TRUE)
 ```
+#The first tells us the month as a number (10) while the second labels it with a name (Oct)
 
 ```{r}
 # What does this number mean?
 week(today)
 ```
+#What week of the year it is (1-52)
 
 ```{r}
 # What do these lines produce / what's their difference?
 mday(today)
 yday(today)  # This is often called the "Julian day"
 ```
+#The first is the day of the month (Oct 18) and the next is the day of the year (291)
 
 ```{r}
 # What do these lines produce / what's their difference?
 wday(today)
 wday(today, label = TRUE)
 ```
+#This shows the day of the week as a number (Sunday is the first day of the week)
 
 ```{r}
 # What do the results of these 2 lines tell us?
 today >= ymd("2024-02-14")
 today < ymd("2024-02-14")
 ```
+#The first shows how today is on or after Feb 14, 2024 (TRUE) and how today is not before Feb 14, 2024 (FALSE)
 
 \
 \
