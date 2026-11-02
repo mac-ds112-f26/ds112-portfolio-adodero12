@@ -1,9 +1,0 @@
----
-title: "Personal Visualization Journey"
----
-
-Add content here
-```{r}
-stepcount <- read.csv("../data/")
-```
-

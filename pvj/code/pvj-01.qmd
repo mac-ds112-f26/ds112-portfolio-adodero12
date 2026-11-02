@@ -9,3 +9,17 @@ step_count <- read.csv("../data/raw/StepCount.csv")
 head(step_count)
 ```
 > group by date, mutate and summarize
+
+```{r}
+
+```
+
+mutate
+use lubridate to make dates
+mutate(date = date)
+
+groupby dates
+
+
+
+mutate (sum of steps (value))
